@@ -26,4 +26,10 @@ describe Warmup do
     it 'returns an integer 3x the length of an array'
   end
 
+  describe '#calls_some_methods' do
+    it 'receives the #upcase! method call'
+    it 'receives the #reverse! method call'
+    it 'returns a different object than what was passed in'
+  end
+
 end
