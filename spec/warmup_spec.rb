@@ -22,4 +22,8 @@ describe Warmup do
     end
   end
 
+  describe '#triple_size' do
+    it 'returns an integer 3x the length of an array'
+  end
+
 end
