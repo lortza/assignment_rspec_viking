@@ -6,12 +6,12 @@ describe Warmup do
 
   describe '#gets_shout' do
 
+    subject { warmup.gets_shout }
+
     before(:each) do
       allow(warmup).to receive(:gets).and_return('abc')
       allow(STDOUT).to receive(:puts)
     end
-
-    subject { warmup.gets_shout }
 
     it 'receives input and returns it' do
       expect(subject).to eq('ABC')
