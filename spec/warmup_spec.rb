@@ -13,11 +13,11 @@ describe Warmup do
       allow(STDOUT).to receive(:puts)
     end
 
-    it 'receives input and returns it' do
+    it 'receives input and returns it in caps' do
       expect(subject).to eq('ABC')
     end
 
-    it 'receives input and shouts it back' do
+    it "receives input and 'puts' it out in reverse" do
       expect{ subject }.to output("CBA\n").to_stdout
     end
   end
