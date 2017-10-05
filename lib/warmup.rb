@@ -6,8 +6,9 @@ class Warmup
   def gets_shout
     shout = gets.chomp.upcase
 
-    # This is a side effect. Test it if you'd like!
-    puts shout
+    # The reverse is here so I can easily tell the
+    # difference between this line and what's returned
+    puts shout.reverse
 
     return shout
   end
