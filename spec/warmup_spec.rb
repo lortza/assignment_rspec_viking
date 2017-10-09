@@ -23,7 +23,10 @@ describe Warmup do
   end
 
   describe '#triple_size' do
-    it 'returns an integer 3x the length of an array'
+    let(:arr) { double('Array Double', size: 2) }
+    it 'returns an integer 3x the length of an array' do
+      expect(warmup.triple_size(arr)).to eq(6)
+    end
   end
 
   describe '#calls_some_methods' do
