@@ -2,19 +2,23 @@ require 'viking'
 
 describe Viking do
   let(:default_viking) { Viking.new }
-  let(:named_viking) { Viking.new(name: 'Sven') }
+  let(:custom_viking) { Viking.new('Zorro', 200, 20) }
 
   describe '#initialize' do
-    xit "passing a name sets the name attribute" do
+    it "passing a name sets the name attribute" do
+      expect(custom_viking.name).to eq('Zorro')
     end
 
-    xit "passing a health attribute sets the health attribute" do
+    it "passing a health attribute sets the health attribute" do
+      expect(custom_viking.health).to eq(200)
     end
 
-    xit "health cannot be overwritten after it's been set on initialize" do
+    it "health cannot be overwritten after it's been set on initialize" do
+      expect { custom_viking.health = 50 }.to raise_error(NoMethodError)
     end
 
-    xit "sets the weapon to nil by default" do
+    it "sets the weapon to nil by default" do
+      expect(default_viking.weapon).to eq(nil)
     end
   end
 
