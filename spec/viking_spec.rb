@@ -1,59 +1,75 @@
 require 'viking'
 
 describe Viking do
+  let(:default_viking) { Viking.new }
+  let(:named_viking) { Viking.new(name: 'Sven') }
 
-  it "Passing a name to a new Viking sets that name attribute" do
+  describe '#initialize' do
+    xit "passing a name sets the name attribute" do
+    end
+
+    xit "passing a health attribute sets the health attribute" do
+    end
+
+    xit "health cannot be overwritten after it's been set on initialize" do
+    end
+
+    xit "sets the weapon to nil by default" do
+    end
   end
 
-  it "Passing a health attribute to a new Viking sets that health attribute" do
+  describe '#attack' do
+    xit "causes the recipient's health to drop" do
+    end
+
+    xit "calls that Viking's take_damage method" do
+    end
+
+    context 'with no weapon' do
+      xit "runs damage_with_fists" do
+      end
+
+      xit "deals Fists multiplier times strength damage" do
+      end
+    end
+
+    context 'with a weapon' do
+      xit "runs damage_with_weapon" do
+      end
+
+      xit "deals damage equal to the Viking's strength times that Weapon's multiplier" do
+      end
+
+      xit 'with an empty bow uses Fists instead' do
+      end
+    end
   end
 
-  it "health cannot be overwritten after it's been set on initialize" do
+  describe '#receive_attack' do
+    xit "reduces that Viking's health by the specified amount" do
+    end
+
+    xit "calls the take_damage method (hint: recall expect(...).to receive(...))" do
+    end
+
+    xit "killing a Viking raises an error" do
+    end
   end
 
-  it "A Viking's weapon starts out nil by default" do
+  describe '#pick_up_weapon' do
+    xit "sets it as the Viking's weapon" do
+    end
+
+    xit "if new, it replaces the Viking's existing weapon" do
+    end
+
+    xit "if it's not a weapon, it raises an exception" do
+    end
   end
 
-  it "Picking up a Weapon sets it as the Viking's weapon" do
-  end
-
-  it "Picking up a non-Weapon raises an exception" do
-  end
-
-  it "Picking up a new Weapon replaces the Viking's existing weapon" do
-  end
-
-  it "Dropping a Viking's weapon leaves the Viking weaponless" do
-  end
-
-  it "The receive_attack method reduces that Viking's health by the specified amount" do
-  end
-
-  it "The receive_attack method calls the take_damage method (hint: recall expect(...).to receive(...))" do
-  end
-
-  it "attacking another Viking causes the recipient's health to drop" do
-  end
-
-  it "attacking another Viking calls that Viking's take_damage method" do
-  end
-
-  it "attacking with no weapon runs damage_with_fists" do
-  end
-
-  it "attacking with no weapon deals Fists multiplier times strength damage" do
-  end
-
-  it "attacking with a weapon runs damage_with_weapon" do
-  end
-
-  it "attacking with a weapon deals damage equal to the Viking's strength times that Weapon's multiplier" do
-  end
-
-  it "attacking using a Bow without enough arrows uses Fists instead" do
-  end
-
-  it "Killing a Viking raises an error" do
+  describe '#drop_weapon' do
+    xit "leaves the Viking weaponless" do
+    end
   end
 
 end #Viking
