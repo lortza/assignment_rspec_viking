@@ -30,9 +30,30 @@ describe Warmup do
   end
 
   describe '#calls_some_methods' do
-    it 'receives the #upcase! method call'
-    it 'receives the #reverse! method call'
-    it 'returns a different object than what was passed in'
+    let(:str) { 'abc' }
+
+    before do
+      allow(str).to receive(:upcase!).and_return(str) #returning str overwrites 'abc' with 'ABC'
+      allow(str).to receive(:reverse!).and_return('CBA')
+    end
+
+    it 'raises an error if the input is empty' do
+      expect { warmup.calls_some_methods('') }.to raise_error("Hey, give me a string!")
+    end
+
+    it 'receives the #upcase! method call' do
+      expect(str).to receive(:upcase!)
+      warmup.calls_some_methods(str)
+    end
+
+    it 'receives the #reverse! method call' do
+      expect(str).to receive(:reverse!)
+      warmup.calls_some_methods(str)
+    end
+
+    it 'returns a different object than what was passed in' do
+      expect(str.object_id).not_to eq(warmup.calls_some_methods(str).object_id)
+    end
   end
 
 end
