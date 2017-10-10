@@ -61,13 +61,21 @@ describe Viking do
   end
 
   describe '#pick_up_weapon' do
-    xit "sets it as the Viking's weapon" do
+
+    it "sets it as the Viking's weapon" do
+      unarmed_viking = Viking.new('Unarmed Viking', 100, 10)
+      unarmed_viking.pick_up_weapon(Axe.new)
+      expect(unarmed_viking.weapon.class).to be(Axe)
     end
 
-    xit "if new, it replaces the Viking's existing weapon" do
+    it "if new, it replaces the Viking's existing weapon" do
+      armed_viking = Viking.new('Armed Viking', 100, 10, Axe.new)
+      armed_viking.pick_up_weapon(Bow.new)
+      expect(armed_viking.weapon.class).to be(Bow)
     end
 
-    xit "if it's not a weapon, it raises an exception" do
+    it "if it's not a weapon, it raises an exception" do
+      expect { armed_viking.pick_up_weapon(FakeClass.new) }.to raise_error(NameError)
     end
   end
 
