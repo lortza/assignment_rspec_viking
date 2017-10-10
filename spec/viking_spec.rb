@@ -50,13 +50,22 @@ describe Viking do
   end
 
   describe '#receive_attack' do
-    xit "reduces that Viking's health by the specified amount" do
+    let(:damage) { 5 }
+
+    it "calls that Viking's take_damage method" do
+      expect(default_viking).to receive(:take_damage).with(damage)
+      default_viking.receive_attack(damage)
     end
 
-    xit "calls the take_damage method (hint: recall expect(...).to receive(...))" do
+    it "reduces that Viking's health by the specified amount" do
+      before_health = default_viking.health
+      default_viking.receive_attack(damage)
+      expect(default_viking.health).to eq(before_health - damage)
     end
 
-    xit "killing a Viking raises an error" do
+    it "killing a Viking raises an error" do
+      lethal_damage = 100
+      expect { default_viking.receive_attack(lethal_damage) }.to raise_error("#{default_viking.name} has Died...")
     end
   end
 
