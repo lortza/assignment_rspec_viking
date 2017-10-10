@@ -11,6 +11,10 @@ describe Viking do
   let(:custom_viking) { Viking.new('Zorro', 200, 20, Axe.new) }
 
   describe '#initialize' do
+    it "is a Viking" do
+       expect(default_viking).to be_a(Viking)
+    end
+
     it "passing a name sets the name attribute" do
       expect(custom_viking.name).to eq('Zorro')
     end
@@ -114,7 +118,7 @@ describe Viking do
     it "sets it as the Viking's weapon" do
       unarmed_viking = Viking.new('Unarmed Viking', 100, 10)
       unarmed_viking.pick_up_weapon(Axe.new)
-      expect(unarmed_viking.weapon.class).to be(Axe)
+      expect(unarmed_viking.weapon).to be_a(Axe)
     end
 
     it "if new, it replaces the Viking's existing weapon" do

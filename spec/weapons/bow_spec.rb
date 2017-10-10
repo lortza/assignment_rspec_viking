@@ -10,6 +10,7 @@ describe Bow do
   end
 
   describe '#initialize' do
+    it("is a Bow") { expect(default_bow).to be_a(Bow) }
     it("has 10 arrows by default") { expect(default_bow.arrows).to eq(10) }
     it("can be loaded with a custom qty of arrows") { expect(loaded_bow.arrows).to eq(20) }
   end
