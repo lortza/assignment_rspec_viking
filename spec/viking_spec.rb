@@ -1,8 +1,14 @@
+require 'pry'
 require 'viking'
 
 describe Viking do
+
+  before do
+    allow($stdout).to receive(:puts)
+  end
+
   let(:default_viking) { Viking.new }
-  let(:custom_viking) { Viking.new('Zorro', 200, 20) }
+  let(:custom_viking) { Viking.new('Zorro', 200, 20, Axe.new) }
 
   describe '#initialize' do
     it "passing a name sets the name attribute" do
@@ -23,28 +29,62 @@ describe Viking do
   end
 
   describe '#attack' do
-    xit "causes the recipient's health to drop" do
-    end
+    let(:armed_viking) { Viking.new('Armed Viking', 100, 10, Axe.new) }
+    let(:damage) { 5 }
 
-    xit "calls that Viking's take_damage method" do
+    it "causes the recipient's health to drop" do
+      before_health = default_viking.health
+      armed_viking.attack(default_viking)
+      expect(default_viking.health).to be < before_health
     end
 
     context 'with no weapon' do
-      xit "runs damage_with_fists" do
+      let(:unarmed_viking) { Viking.new('Unarmed Viking', 100, 10) }
+
+      it "runs damage_with_fists" do
+        allow(unarmed_viking).to receive(:damage_with_fists).and_return(damage)
+        expect(unarmed_viking).to receive(:damage_with_fists)
+        unarmed_viking.attack(default_viking)
       end
 
-      xit "deals Fists multiplier times strength damage" do
+      it "deals damage equal to Fists multiplier times strength damage" do
+        fists = Fists.new
+        weapon_multiplier = fists.use
+        strength_multiplier = armed_viking.strength
+        inflicted_damage = strength_multiplier * weapon_multiplier
+
+        expect(default_viking).to receive(:receive_attack).and_return(inflicted_damage)
+        armed_viking.attack(default_viking)
       end
     end
 
     context 'with a weapon' do
-      xit "runs damage_with_weapon" do
+      it "runs damage_with_weapon" do
+        allow(armed_viking).to receive(:damage_with_weapon).and_return(damage)
+        expect(armed_viking).to receive(:damage_with_weapon)
+        armed_viking.attack(default_viking)
       end
 
-      xit "deals damage equal to the Viking's strength times that Weapon's multiplier" do
+      it "deals damage equal to the Viking's strength times that Weapon's multiplier" do
+        weapon_multiplier = armed_viking.weapon.use
+        strength_multiplier = armed_viking.strength
+        inflicted_damage = strength_multiplier * weapon_multiplier
+
+        expect(default_viking).to receive(:receive_attack).with(inflicted_damage)
+        armed_viking.attack(default_viking)
       end
 
-      xit 'with an empty bow uses Fists instead' do
+      it 'with an empty bow uses Fists instead' do
+        empty_bow = Bow.new(0)
+        fists = Fists.new
+        weapon_multiplier = fists.use
+        strength_multiplier = armed_viking.strength
+        inflicted_damage = strength_multiplier * weapon_multiplier
+
+        armed_viking.pick_up_weapon(empty_bow)
+        allow(armed_viking).to receive(:damage_with_fists).and_return(inflicted_damage)
+        expect(armed_viking).to receive(:damage_with_fists)
+        armed_viking.attack(default_viking)
       end
     end
   end
