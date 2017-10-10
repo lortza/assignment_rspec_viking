@@ -72,7 +72,12 @@ describe Viking do
   end
 
   describe '#drop_weapon' do
-    xit "leaves the Viking weaponless" do
+    let(:armed_viking) { Viking.new('Armed Viking', 100, 10, Axe.new) }
+
+    it "leaves the Viking weaponless" do
+      expect(armed_viking.weapon).to_not eq(nil)
+      armed_viking.drop_weapon
+      expect(armed_viking.weapon).to eq(nil)
     end
   end
 
